@@ -39,15 +39,15 @@ booksWrapper.innerHTML = booksHtml;
 }
 
 function ratingsHTML(rating) {
-  let ratingHTML = '';
+  let ratingsHTML = '';
 for (let i = 0; i < Math.floor(4.5); ++i) {
-  ratingHTML += '<i class="fas fa-star"></i>\n'
+  ratingsHTML += '<i class="fas fa-star"></i>\n'
 }
 if (!Number.isInteger) {
   <i class="fas fa-star-half-alt"></i>
- ratingHTML += '<i class="fas fa-star-half-alt"></i>\n'
+ ratingsHTML += '<i class="fas fa-star-half-alt"></i>\n'
 }
-return ratingHTML; 
+return ratingsHTML; 
 }
 
 function filterBooks(event) {
