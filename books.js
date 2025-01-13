@@ -5,10 +5,10 @@ const books = getBooks();
 
 console.log(filter)
 if (filter === 'LOW_TO_HIGH') {
-  books.sort((a, b) => a.originalPrice - b.originalPrice);
+  books.sort((a, b) => (a.salePrice || a.originalPrice) - (b.salePrice || b.originalPrice));
 }
 else if (filter === 'HIGH_TO_LOW') {
-  books.sort((a, b) => b.originalPrice - a.originalPrice);
+  books.sort((a, b) => (b.salePrice || b.originalPrice) - (a.salePrice || a.originalPrice));
 }
 else if(filter === 'RATING') {
   books.sort((a, b) => b.rating - a.rating);
@@ -29,7 +29,7 @@ const booksHtml = books
   ${ratingsHTML(books.rating)}
 </div>
 <div class="book__price">
-    <span class=>$${books.originalPrice.toFixed(2)}</span> 
+    ${priceHTML(books.originalPrice, books.salePrice)}
   </div>
 </div>`;
 })
@@ -38,13 +38,22 @@ const booksHtml = books
 booksWrapper.innerHTML = booksHtml;
 }
 
+function priceHTML(originalPrice, salePrice) {
+  if (!salePrice) {
+    return `$${originalPrice.toFixed(2)}`
+  }
+  else {
+    return `<span class="book__price--normal">$${originalPrice.toFixed(2)}</span>$${salePrice.toFixed(2)} `
+  } 
+}
+
 function ratingsHTML(rating) {
   let ratingsHTML = '';
 for (let i = 0; i < Math.floor(4.5); ++i) {
   ratingsHTML += '<i class="fas fa-star"></i>\n'
 }
 if (!Number.isInteger) {
-  <i class="fas fa-star-half-alt"></i>
+  // <i class="fas fa-star-half-alt"></i>
  ratingsHTML += '<i class="fas fa-star-half-alt"></i>\n'
 }
 return ratingsHTML; 
