@@ -1,7 +1,16 @@
-function renderBooks(filter) {
-  const booksWrapper = document.querySelector(".books"); 
+let books;
 
-const books = getBooks();
+async function renderBooks(filter) { 
+  const booksWrapper = document.querySelector(".books");
+ 
+  booksWrapper.classList += ' books__loading'
+
+  if (!books) {
+    books = await getBooks();
+  }
+  
+  booksWrapper.classList.remove('books__loading')
+  
 
 console.log(filter)
 if (filter === 'LOW_TO_HIGH') {
@@ -63,12 +72,13 @@ function filterBooks(event) {
   renderBooks(event.target.value);
 }
 
+
 setTimeout(() => {
   renderBooks();
 });
 // FAKE DATA
 function getBooks() {
-  new Promise((resolve) => {
+  return new Promise((resolve) => {
     setTimeout(() => {
       resolve([
      {
